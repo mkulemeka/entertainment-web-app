@@ -1,0 +1,9 @@
+import PropTypes from "prop-types";
+
+const Card = (props) => {
+  return <div>Card</div>;
+};
+
+Card.propTypes = {};
+
+export default Card;
