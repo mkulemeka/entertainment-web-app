@@ -1,30 +1,32 @@
-import { Nav } from "../components";
-import { icons } from "../assets";
+import {
+  IconNavBookmark,
+  IconNavHome,
+  IconNavMovies,
+  IconNavTvSeries,
+  icons,
+} from "../assets";
 
-const {
-  iconNavBookmark,
-  iconNavHome,
-  iconNavMovies,
-  iconNavTv,
-  imageAvatar,
-  logo,
-} = icons;
+import { Nav } from "../components";
+import styles from "./Header.module.css";
+
+const { imageAvatar, logo } = icons;
 const pages = [
-  ["/", iconNavHome],
-  ["movies", iconNavMovies],
-  ["tvseries", iconNavTv],
-  ["bookmarkedshows", iconNavBookmark],
+  ["/", IconNavHome],
+  ["/movies", IconNavMovies],
+  ["/tvseries", IconNavTvSeries],
+  ["/bookmarkedshows", IconNavBookmark],
 ];
+
 
 const Header = () => {
   return (
-    <header>
+    <header className={`bg-darkBlueGrey ${styles.header}`}>
       <figure>
         <img src={logo} alt="Logo" />
       </figure>
       <Nav pages={pages} />
-      <figure>
-        <img src={imageAvatar} alt="Avatar" />
+      <figure className="w-[24px] h-[24px]">
+        <img src={imageAvatar} alt="Avatar" className="w-full h-auto" />
       </figure>
     </header>
   );

@@ -27,6 +27,13 @@ export default {
         bodyM: "0.9375rem",
         bodyS: "0.8125rem",
       },
+      screens: {
+        xs: "375px",
+        sm: "640px",
+        md: "768px",
+        lg: "1025px",
+        xl: "1280px",
+      },
     },
   },
   plugins: [],

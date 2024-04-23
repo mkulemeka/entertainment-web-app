@@ -1,3 +1,5 @@
+import "./App.css";
+
 import * as Pages from "./pages";
 
 import { RouterProvider, createBrowserRouter } from "react-router-dom";

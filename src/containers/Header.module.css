@@ -1,0 +1,22 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+
+  @media (min-width: 768px) {
+    max-width: 95%;
+    margin: 1.5rem auto;
+    border-radius: 0.5rem;
+  }
+
+  @media (min-width: 1025px) {
+    flex-direction: column;
+    width: 96px;
+    height: 95%;
+    position: fixed;
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+}
+
