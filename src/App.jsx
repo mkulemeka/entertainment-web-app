@@ -6,6 +6,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import { AnimatePresence } from "framer-motion";
 import AppLayout from "./layouts/AppLayout";
+import { EntertainmentProvider } from "./context/EntertainmentProvider";
 import React from "react";
 
 // Get all the pages from the Pages object
@@ -35,7 +36,9 @@ const App = () => {
 
   return (
     <React.StrictMode>
-      <RouterProvider router={router} />
+      <EntertainmentProvider>
+        <RouterProvider router={router} />
+      </EntertainmentProvider>
     </React.StrictMode>
   );
 };

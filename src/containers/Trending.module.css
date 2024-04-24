@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.cardContainer {
+    display: flex;
+    gap: 1rem;
+    
+    overflow-x: scroll;
+    scrollbar-width: none;
+}
+
+.cardContainer::-webkit-scrollbar {
+    display: none;
+}

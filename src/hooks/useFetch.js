@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 
 const useFetch = () => {
-  const [shows, setShows] = useState(null);
-  const [movies, setMovies] = useState(null);
-  const [tvSeries, setTvSeries] = useState(null);
-  const [isTrending, setIsTrending] = useState(null);
+  const [shows, setShows] = useState([]);
+  const [movies, setMovies] = useState([]);
+  const [tvSeries, setTvSeries] = useState([]);
+  const [trending, setTrending] = useState([]);
+  const [bookmarkedShows, setBookmarkedShows] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const url = "../data.json";
+    const url = "/data.json";
     const fetchData = async () => {
       try {
         const response = await fetch(url);
@@ -30,13 +31,19 @@ const useFetch = () => {
 
   // Set shows by category
   const setCategory = (shows) => {
-    const { moviesCategory, tvSeriesCategory, isTrendingCategory } = shows;
+    const {
+      moviesCategory,
+      tvSeriesCategory,
+      trendingCategory,
+      bookmarkedShows: bookmarked,
+    } = shows;
     setMovies(moviesCategory);
     setTvSeries(tvSeriesCategory);
-    setIsTrending(isTrendingCategory);
+    setTrending(trendingCategory);
+    setBookmarkedShows(bookmarked);
   };
 
-  return { movies, shows, tvSeries, isTrending, loading };
+  return { bookmarkedShows, movies, shows, tvSeries, trending, loading };
 };
 
 // Helper function to filter shows by category
@@ -48,11 +55,20 @@ const filterCategory = (shows) => {
     category.toLowerCase().includes("tv series")
   );
 
-  const isTrendingCategory = shows.filter(
+  const trendingCategory = shows.filter(
     ({ isTrending }) => isTrending === true
   );
 
-  return { moviesCategory, tvSeriesCategory, isTrendingCategory };
+  const bookmarkedShows = shows.filter(
+    ({ isBookmarked }) => isBookmarked === true
+  );
+
+  return {
+    moviesCategory,
+    tvSeriesCategory,
+    trendingCategory,
+    bookmarkedShows,
+  };
 };
 
 export default useFetch;

@@ -1,0 +1,25 @@
+.section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.icon {
+  width: 2rem;
+  height: auto;
+}
+
+.input {
+  width: 100%;
+  border: transparent;
+
+  font-size: 1.2rem;
+  font-weight: 300;
+  font-family: "Outline", sans-serif;
+  color: white;
+
+  outline: transparent;
+
+  @media (min-width: 1025px) {
+  }
+}
