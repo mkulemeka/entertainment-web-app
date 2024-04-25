@@ -1,11 +1,20 @@
 import { createContext, useEffect, useState } from "react";
 
 import PropTypes from "prop-types";
+import useFetch from "../hooks/useFetch";
 
 const EntertainmentContext = createContext();
 
 const EntertainmentProvider = ({ children }) => {
   const [windwWidth, setWindwWidth] = useState(window?.innerWidth);
+  const {
+    shows,
+    loading,
+    bookmarkedShows,
+    movies,
+    tvSeries,
+    setBookmarkedShows,
+  } = useFetch();
 
   useEffect(() => {
     const handleResize = () => {
@@ -21,6 +30,12 @@ const EntertainmentProvider = ({ children }) => {
 
   const contextValue = {
     windwWidth,
+    shows,
+    loading,
+    bookmarkedShows,
+    movies,
+    tvSeries,
+    setBookmarkedShows,
   };
 
   return (

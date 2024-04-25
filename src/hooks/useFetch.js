@@ -29,7 +29,7 @@ const useFetch = () => {
     fetchData();
   }, []);
 
-  // Set shows by category
+// Set shows by category
   const setCategory = (shows) => {
     const {
       moviesCategory,
@@ -43,7 +43,7 @@ const useFetch = () => {
     setBookmarkedShows(bookmarked);
   };
 
-  return { bookmarkedShows, movies, shows, tvSeries, trending, loading };
+  return { bookmarkedShows, movies, shows, tvSeries, trending, loading, setBookmarkedShows };
 };
 
 // Helper function to filter shows by category

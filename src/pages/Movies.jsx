@@ -1,11 +1,13 @@
 import { Loading, Search } from "../components";
 import {useFetch, useSearch} from "../hooks";
 
+import { EntertainmentContext } from "../context/EntertainmentProvider";
 import PageLayout from "../layouts/PageLayout";
 import { SearchResults } from "../containers";
+import { useContext } from "react";
 
 const Movies = () => {
-  const { movies, loading } = useFetch();
+  const { movies, loading } = useContext(EntertainmentContext);
   const { searchInput, handleSearch } = useSearch();
 
   if (loading) return <Loading />;

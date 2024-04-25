@@ -1,12 +1,10 @@
-import { EntertainmentContext } from "../context/EntertainmentProvider";
 import PropTypes from "prop-types";
+import { handleBookmarkClick } from "../utils/bookmarkUtils";
 import { icons } from "../assets";
 import styles from "./Card.module.css";
-import { useContext } from "react";
 
 const { iconBookmark, iconBookmarkFilled, iconPlay } = icons;
-const Card = ({ show }) => {
-  const { windwWidth } = useContext(EntertainmentContext);
+const Card = ({ show, windowWidth, setBookmarkedShows }) => {
   const {
     isBookmarked,
     title,
@@ -16,21 +14,31 @@ const Card = ({ show }) => {
     year,
   } = show;
 
-  const cardThumbnail = windwWidth > 768 ? regular.large : regular.small;
-  
+  // Set card thumbnail based on window width
+  const cardThumbnail = windowWidth > 768 ? regular.large : regular.small;
+
+  // Handle bookmark click
+  const handleClick = () => {
+    handleBookmarkClick(show, setBookmarkedShows);
+  };
+
   return (
-    <article className={` ${styles.card}`}>
+    <article className={`${styles.card}`}>
       <figure
         className={`${styles.cardBackground} ${styles.cardImage}`}
         style={{ backgroundImage: `url(${cardThumbnail})` }}
       >
-        <button className={styles.bookmarkButton}>
+        <button
+          className={styles.bookmarkButton}
+          aria-label="bookmark button"
+          onClick={handleClick}
+        >
           <img
             src={isBookmarked ? iconBookmarkFilled : iconBookmark}
             alt="Bookmark icon"
           />
         </button>
-        <button className={styles.cardPlayButton}>
+        <button className={styles.cardPlayButton} aria-label="play button">
           <img src={iconPlay} />
           <span>Play</span>
         </button>
@@ -45,6 +53,8 @@ const Card = ({ show }) => {
 
 Card.propTypes = {
   show: PropTypes.object,
+  windowWidth: PropTypes.number,
+  setBookmarkedShows: PropTypes.func,
 };
 
 export default Card;
