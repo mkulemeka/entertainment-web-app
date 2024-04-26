@@ -1,10 +1,15 @@
 import PropTypes from "prop-types";
-import { handleBookmarkClick } from "../utils/bookmarkUtils";
 import { icons } from "../assets";
 import styles from "./Card.module.css";
 
-const { iconBookmark, iconBookmarkFilled, iconPlay } = icons;
-const Card = ({ show, windowWidth, setBookmarkedShows }) => {
+const {
+  iconBookmark,
+  iconBookmarkFilled,
+  iconPlay,
+  iconCategoryMovies,
+  iconCategoryTv,
+} = icons;
+const Card = ({ show, windowWidth, toggleBookmark }) => {
   const {
     isBookmarked,
     title,
@@ -16,11 +21,7 @@ const Card = ({ show, windowWidth, setBookmarkedShows }) => {
 
   // Set card thumbnail based on window width
   const cardThumbnail = windowWidth > 768 ? regular.large : regular.small;
-
-  // Handle bookmark click
-  const handleClick = () => {
-    handleBookmarkClick(show, setBookmarkedShows);
-  };
+  const categoryIcon = category === "Movie" ? iconCategoryMovies : iconCategoryTv;
 
   return (
     <article className={`${styles.card}`}>
@@ -29,9 +30,10 @@ const Card = ({ show, windowWidth, setBookmarkedShows }) => {
         style={{ backgroundImage: `url(${cardThumbnail})` }}
       >
         <button
+          id={title}
           className={styles.bookmarkButton}
           aria-label="bookmark button"
-          onClick={handleClick}
+          onClick={() => toggleBookmark(title)}
         >
           <img
             src={isBookmarked ? iconBookmarkFilled : iconBookmark}
@@ -39,12 +41,21 @@ const Card = ({ show, windowWidth, setBookmarkedShows }) => {
           />
         </button>
         <button className={styles.cardPlayButton} aria-label="play button">
-          <img src={iconPlay} />
+          <img src={iconPlay} alt="Play icon" />
           <span>Play</span>
         </button>
       </figure>
       <div className={`${styles.div} ${styles.showStat}`}>
-        <p>{year}</p>•<p>{category}</p>•<p>{rating}</p>
+        <p>{year}</p>•
+        <p className={styles.category}>
+          <img
+            src={categoryIcon}
+            className={styles.categoryIcon}
+            alt="Category icon"
+          />
+          {category}
+        </p>
+        •<p>{rating}</p>
       </div>
       <h3 className={styles.showTitle}>{title}</h3>
     </article>
@@ -54,7 +65,7 @@ const Card = ({ show, windowWidth, setBookmarkedShows }) => {
 Card.propTypes = {
   show: PropTypes.object,
   windowWidth: PropTypes.number,
-  setBookmarkedShows: PropTypes.func,
+  toggleBookmark: PropTypes.func,
 };
 
 export default Card;

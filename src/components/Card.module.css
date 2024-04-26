@@ -67,6 +67,17 @@
   font-weight: 500;
 }
 
+.category {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.categoryIcon {
+  width: 12px;
+  height: 12px;
+}
+
 /* Trendind card styles */
 
 .trendingCard {

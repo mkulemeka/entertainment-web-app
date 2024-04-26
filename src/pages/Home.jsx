@@ -1,11 +1,13 @@
 import { Loading, Search } from "../components";
 import { SearchResults, Trending } from "../containers";
-import { useFetch, useSearch } from "../hooks";
 
+import { EntertainmentContext } from "../context/EntertainmentProvider";
 import PageLayout from "../layouts/PageLayout";
+import { useContext } from "react";
+import useSearch from "../hooks/useSearch";
 
 const Home = () => {
-  const { shows, trending, loading } = useFetch();
+  const { shows, trendingShows, loading } = useContext(EntertainmentContext);
   const { searchInput, handleSearch } = useSearch();
 
   if (loading) return <Loading />;
@@ -21,14 +23,12 @@ const Home = () => {
         <SearchResults searchInput={searchInput} shows={shows} />
       ) : (
         <>
-          <Trending trendingShows={trending} />
+          <Trending trendingShows={trendingShows} />
           <PageLayout shows={shows} sectionHeading="Recommended for you" />
         </>
       )}
     </main>
   );
 };
-
-Home.propTypes = {};
 
 export default Home;

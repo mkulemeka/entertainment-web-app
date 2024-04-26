@@ -7,14 +7,7 @@ const EntertainmentContext = createContext();
 
 const EntertainmentProvider = ({ children }) => {
   const [windwWidth, setWindwWidth] = useState(window?.innerWidth);
-  const {
-    shows,
-    loading,
-    bookmarkedShows,
-    movies,
-    tvSeries,
-    setBookmarkedShows,
-  } = useFetch();
+  const { shows, loading, toggleBookmark } = useFetch();
 
   useEffect(() => {
     const handleResize = () => {
@@ -28,6 +21,12 @@ const EntertainmentProvider = ({ children }) => {
     };
   }, []);
 
+  // Filter shows based on category, isTrending, and isBookmarked
+  const movies = shows.filter(({ category }) => category === "Movie");
+  const tvSeries = shows.filter(({ category }) => category.includes("TV Series"));
+  const trendingShows = shows.filter(({ isTrending }) => isTrending);
+  const bookmarkedShows = shows.filter(({ isBookmarked }) => isBookmarked);
+
   const contextValue = {
     windwWidth,
     shows,
@@ -35,7 +34,8 @@ const EntertainmentProvider = ({ children }) => {
     bookmarkedShows,
     movies,
     tvSeries,
-    setBookmarkedShows,
+    trendingShows,
+    toggleBookmark,
   };
 
   return (
