@@ -17,7 +17,6 @@ const pages = [
   ["/bookmarkedshows", IconNavBookmark],
 ];
 
-
 const Header = () => {
   return (
     <header className={`bg-darkBlueGrey ${styles.header}`}>
@@ -25,7 +24,7 @@ const Header = () => {
         <img src={logo} alt="Logo" />
       </figure>
       <Nav pages={pages} />
-      <figure className="w-[24px] h-[24px]">
+      <figure className={styles.headerProfile}>
         <img src={imageAvatar} alt="Avatar" className="w-full h-auto" />
       </figure>
     </header>

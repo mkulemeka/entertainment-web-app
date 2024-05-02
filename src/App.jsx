@@ -14,13 +14,13 @@ const pages = Object.keys(Pages);
 
 const App = () => {
   // Create an array of routes from the pages
-  const routes = pages.map((page) => {
+  const routes = pages.map((page, i) => {
     const Page = Pages[page];
     return {
       path: page === "Home" ? "/" : `/${page.toLowerCase()}`,
       element: (
-        <AnimatePresence mode="wait">
-          <Page />
+        <AnimatePresence mode="sync">
+          <Page key={page + i} />
         </AnimatePresence>
       ),
     };

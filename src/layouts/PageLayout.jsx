@@ -5,8 +5,7 @@ import styles from "./PageLayout.module.css";
 import { useContext } from "react";
 
 const PageLayout = ({ shows, sectionHeading }) => {
-  const { setBookmarkedShows, windowWidth, toggleBookmark } =
-    useContext(EntertainmentContext);
+  const { windowWidth, toggleBookmark } = useContext(EntertainmentContext);
 
   return (
     <section className={styles.pageLayout}>
@@ -16,7 +15,6 @@ const PageLayout = ({ shows, sectionHeading }) => {
           <Card
             key={show.title + index}
             show={show}
-            setBookmarkedShows={setBookmarkedShows}
             windowWidth={windowWidth}
             toggleBookmark={toggleBookmark}
           />

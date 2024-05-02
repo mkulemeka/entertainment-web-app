@@ -6,12 +6,12 @@ import useFetch from "../hooks/useFetch";
 const EntertainmentContext = createContext();
 
 const EntertainmentProvider = ({ children }) => {
-  const [windwWidth, setWindwWidth] = useState(window?.innerWidth);
+  const [windowWidth, setWindowWidth] = useState(window?.innerWidth);
   const { shows, loading, toggleBookmark } = useFetch();
 
   useEffect(() => {
     const handleResize = () => {
-      setWindwWidth(window.innerWidth);
+      setWindowWidth(window.innerWidth);
     };
 
     window.addEventListener("resize", handleResize);
@@ -28,7 +28,7 @@ const EntertainmentProvider = ({ children }) => {
   const bookmarkedShows = shows.filter(({ isBookmarked }) => isBookmarked);
 
   const contextValue = {
-    windwWidth,
+    windowWidth,
     shows,
     loading,
     bookmarkedShows,

@@ -3,6 +3,8 @@ import { Loading, Search } from "../components";
 import { EntertainmentContext } from "../context/EntertainmentProvider";
 import PageLayout from "../layouts/PageLayout";
 import SearchResults from "../containers/SearchResults";
+import { motion } from "framer-motion";
+import { pageVariants } from "../animations/variants";
 import { useContext } from "react";
 import useSearch from "../hooks/useSearch";
 
@@ -19,7 +21,13 @@ const BookmarkedShows = () => {
 
   if (loading) return <Loading />;
   return (
-    <main className="bookmarked">
+    <motion.main
+      className="bookmarked"
+      initial="hidden"
+      animate="show"
+      exit="exit"
+      variants={pageVariants}
+    >
       <Search
         placeholder="Search for bookmarked shows"
         searchInput={searchInput}
@@ -29,17 +37,14 @@ const BookmarkedShows = () => {
         <SearchResults searchInput={searchInput} shows={bookmarkedShows} />
       ) : (
         <>
-          <PageLayout
-            shows={bookmarkedMovies}
-            sectionHeading="Bookmarked Movies"
-          />
+          <PageLayout shows={bookmarkedMovies} sectionHeading="Bookmarked Movies" />
           <PageLayout
             shows={bookmarkedTvSeries}
             sectionHeading="Bookmarked TV Series"
           />
         </>
       )}
-    </main>
+    </motion.main>
   );
 };
 

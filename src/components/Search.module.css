@@ -20,6 +20,13 @@
 
   outline: transparent;
 
+  transition: border-bottom 0.2s;
+
   @media (min-width: 1025px) {
+    padding-bottom: 0.875rem;
+
+    &:focus {
+      border-bottom: 0.8px solid #5a698f;
+    }
   }
 }

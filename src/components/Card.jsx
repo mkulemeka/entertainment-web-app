@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
+import { cardVariants } from "../animations/variants";
 import { icons } from "../assets";
+import { motion } from "framer-motion";
 import styles from "./Card.module.css";
 
 const {
@@ -24,7 +26,13 @@ const Card = ({ show, windowWidth, toggleBookmark }) => {
   const categoryIcon = category === "Movie" ? iconCategoryMovies : iconCategoryTv;
 
   return (
-    <article className={`${styles.card}`}>
+    <motion.article
+      className={`${styles.card}`}
+      initial="hidden"
+      animate="show"
+      exit="exit"
+      variants={cardVariants}
+    >
       <figure
         className={`${styles.cardBackground} ${styles.cardImage}`}
         style={{ backgroundImage: `url(${cardThumbnail})` }}
@@ -58,7 +66,7 @@ const Card = ({ show, windowWidth, toggleBookmark }) => {
         •<p>{rating}</p>
       </div>
       <h3 className={styles.showTitle}>{title}</h3>
-    </article>
+    </motion.article>
   );
 };
 

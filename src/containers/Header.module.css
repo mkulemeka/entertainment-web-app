@@ -20,3 +20,15 @@
   }
 }
 
+.headerProfile {
+  width: 24px;
+  height: 24px;
+
+  border: 1px solid #fff;
+  border-radius: 50%;
+
+  @media (min-width: 1025px) {
+    width: 40px;
+    height: 40px;
+  }
+}

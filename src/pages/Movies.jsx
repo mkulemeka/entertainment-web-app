@@ -3,8 +3,10 @@ import { Loading, Search } from "../components";
 import { EntertainmentContext } from "../context/EntertainmentProvider";
 import PageLayout from "../layouts/PageLayout";
 import { SearchResults } from "../containers";
+import { motion } from "framer-motion";
+import { pageVariants } from "../animations/variants";
 import { useContext } from "react";
-import  useSearch from "../hooks/useSearch";
+import useSearch from "../hooks/useSearch";
 
 const Movies = () => {
   const { movies, loading } = useContext(EntertainmentContext);
@@ -13,7 +15,13 @@ const Movies = () => {
   if (loading) return <Loading />;
 
   return (
-    <main className="movies">
+    <motion.main
+      className="movies"
+      initial="hidden"
+      animate="show"
+      exit="exit"
+      variants={pageVariants}
+    >
       <Search
         placeholder="Search for movies"
         searchInput={searchInput}
@@ -24,7 +32,7 @@ const Movies = () => {
       ) : (
         <PageLayout shows={movies} sectionHeading="Movies" />
       )}
-    </main>
+    </motion.main>
   );
 };
 
