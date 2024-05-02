@@ -31,7 +31,7 @@ const useFetch = () => {
 
   // Fetch shows from server
   const fetchShowsFromServer = async () => {
-    const url = "/data.json";
+    const url = "../../data.json";
     const response = await fetch(url);
     return response.json();
   };
