@@ -1,0 +1,57 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5.125rem;
+
+  height: 100vh;
+  width: 100%;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  width: 25rem;
+  padding: 2rem;
+
+  background-color: #161d2f;
+  border-radius: 1rem;
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  input {
+    padding: 0 1rem 1rem 1rem;
+    color: white;
+    caret-color: hsl(0, 97%, 63%);
+
+    font-family: "Outfit", sans-serif;
+    font-size: 1rem;
+
+    background-color: transparent;
+    border-bottom: 1px solid #5a698f;
+    outline: transparent;
+
+    &:focus {
+      border-bottom: 1px solid #fff;
+    }
+  }
+
+  @media (min-width: 768px) {
+    h1 {
+      font-size: 2rem;
+    }
+  }
+}
+
+.span {
+  text-align: center;
+}
+
+.redirectLink {
+  color: hsl(0, 97%, 63%);
+}
