@@ -7,9 +7,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import AppLayout from "./layouts/AppLayout";
 import { EntertainmentProvider } from "./context/EntertainmentProvider";
-import Login from "./pages/Login";
 import React from "react";
-import SignUp from "./pages/SignUp";
 
 // Get all the pages from the Pages object
 const pages = Object.keys(Pages);
@@ -39,9 +37,7 @@ const App = () => {
   return (
     <React.StrictMode>
       <EntertainmentProvider>
-        {/* <RouterProvider router={router} /> */}
-        <Login />
-        {/* <SignUp /> */}
+        <RouterProvider router={router} />
       </EntertainmentProvider>
     </React.StrictMode>
   );

@@ -1,4 +1,5 @@
-import FormButton from "../components/FormButton/FormButton";
+import { FormButton, FormInput } from "../components";
+
 import Logo from "../assets/logo.svg";
 import styles from "./Login.module.css";
 import { useState } from "react";
@@ -6,18 +7,21 @@ import { useState } from "react";
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [passwords, setPasswords] = useState({ password: "", confirmPassword: "" });
+  const [error, setError] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!email || !passwords.password || !passwords.confirmPassword) setError(true);
   };
 
   // Handle password input
-  const handlePassword = ({ target }) => {
+  const handleChange = ({ target }) => {
     const { name, value } = target;
-    setPasswords((prevPasswords) => ({
-      ...prevPasswords,
-      [name]: value,
-    }));
+    if (name === "email") setEmail(value);
+    if (name === "password" || name === "confirmPassword")
+      setPasswords({ ...passwords, [name]: value });
+
+    setError(false);
   };
 
   return (
@@ -27,29 +31,32 @@ const SignUp = () => {
       </figure>
       <form className={styles.form} onSubmit={handleSubmit}>
         <h1>Sign Up</h1>
-        <input
-          type="email"
+        <FormInput
           id="email"
+          type="email"
           name="email"
+          error={error}
           value={email}
           placeholder="Email address"
-          onChange={({ target }) => setEmail(target.value)}
+          onChange={handleChange}
         />
-        <input
-          type="password"
+        <FormInput
           id="password"
+          type="password"
           name="password"
+          error={error}
           value={passwords.password}
           placeholder="Password"
-          onChange={handlePassword}
+          onChange={handleChange}
         />
-        <input
-          type="password"
+        <FormInput
           id="confirmPassword"
+          type="password"
           name="confirmPassword"
+          error={error}
           value={passwords.confirmPassword}
           placeholder="Confirm Password"
-          onChange={handlePassword}
+          onChange={handleChange}
         />
         <FormButton buttonText="Sign Up" />
       </form>
