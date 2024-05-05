@@ -14,34 +14,28 @@ const useAuth = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setLoading(false);
+      if (currentUser) setUser(currentUser);
+      else setUser(null);
     });
 
     return unsubscribe;
   }, []);
 
   const signUp = async (email, password) => {
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-    } catch (error) {
-      setError(error.message);
-    }
+    setLoading(true);
+    return createUserWithEmailAndPassword(auth, email, password);
   };
 
   const login = async (email, password) => {
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      setUser(userCredential.user);
-      setError(null);
-    } catch (error) {
-      setError(error.message);
-    }
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
   };
 
   const logout = async () => {
     try {
+      setLoading(true);
       await signOut(auth);
       setUser(null);
     } catch (error) {
@@ -49,7 +43,7 @@ const useAuth = () => {
     }
   };
 
-  return { user, loading, error, signUp, login, logout };
+  return { user, loading, error, signUp, login, logout, setError, setLoading };
 };
 
 export default useAuth;

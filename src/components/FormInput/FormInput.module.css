@@ -27,7 +27,8 @@
   position: relative;
 }
 
-.error {
+.formError::after {
+  content: "Can't be empty";
   position: absolute;
   top: 6px;
   right: 0;

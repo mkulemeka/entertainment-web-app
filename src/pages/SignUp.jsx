@@ -1,27 +1,44 @@
 import { FormButton, FormInput } from "../components";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
 
+import { AuthContext } from "../context/AuthProvider";
 import Logo from "../assets/logo.svg";
 import styles from "./Login.module.css";
-import { useState } from "react";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+  const { loading, signUp, setLoading } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [passwords, setPasswords] = useState({ password: "", confirmPassword: "" });
-  const [error, setError] = useState(false);
+  const [formError, setFormError] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email || !passwords.password || !passwords.confirmPassword) setError(true);
+    const { password, confirmPassword } = passwords;
+    if (!email || !password || !confirmPassword || password !== confirmPassword) {
+      setFormError(true);
+      return;
+    }
+
+    try {
+      await signUp(email, passwords.password);
+      setLoading(false);
+      navigate("/");
+    } catch (error) {
+      alert(error.message);
+      setLoading(false);
+    }
   };
 
-  // Handle password input
+  // Handle email and password input
   const handleChange = ({ target }) => {
     const { name, value } = target;
     if (name === "email") setEmail(value);
     if (name === "password" || name === "confirmPassword")
       setPasswords({ ...passwords, [name]: value });
 
-    setError(false);
+    setFormError(false);
   };
 
   return (
@@ -35,7 +52,7 @@ const SignUp = () => {
           id="email"
           type="email"
           name="email"
-          error={error}
+          formError={formError}
           value={email}
           placeholder="Email address"
           onChange={handleChange}
@@ -44,7 +61,7 @@ const SignUp = () => {
           id="password"
           type="password"
           name="password"
-          error={error}
+          formError={formError}
           value={passwords.password}
           placeholder="Password"
           onChange={handleChange}
@@ -53,12 +70,18 @@ const SignUp = () => {
           id="confirmPassword"
           type="password"
           name="confirmPassword"
-          error={error}
+          formError={formError}
           value={passwords.confirmPassword}
           placeholder="Confirm Password"
           onChange={handleChange}
         />
-        <FormButton buttonText="Sign Up" />
+        <FormButton buttonText={loading ? "Signing up" : "Sign Up"} />
+        <span className={styles.span}>
+          {`Already have an account? `}
+          <Link to="/login" className={styles.redirectLink}>
+            Login
+          </Link>
+        </span>
       </form>
     </section>
   );

@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import styles from "./FormInput.module.css";
 
-const FormInput = ({ type, id, name, value, placeholder, onChange, error }) => {
+const FormInput = ({ type, id, name, value, placeholder, onChange, formError }) => {
   return (
     <div className={styles.inputContainer}>
       <input
@@ -11,9 +11,11 @@ const FormInput = ({ type, id, name, value, placeholder, onChange, error }) => {
         value={value}
         placeholder={placeholder}
         onChange={onChange}
-        className={`${styles.input} ${error && !value ? styles.inputError : ""}`}
+        className={`${styles.input} ${formError && !value ? styles.inputError : ""}`}
       />
-      {error && !value && <span className={styles.error}>{`Can't be empty`}</span>}
+      {formError && !value && (
+        <span className={styles.formError}></span>
+      )}
     </div>
   );
 };
@@ -25,7 +27,7 @@ FormInput.propTypes = {
   value: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  error: PropTypes.bool,
+  formError: PropTypes.bool,
 };
 
 export default FormInput;
