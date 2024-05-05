@@ -1,0 +1,41 @@
+.input {
+  width: 100%;
+  display: inline-block;
+  padding: 0 1rem 1rem 1rem;
+  color: white;
+  caret-color: hsl(0, 97%, 63%);
+
+  font-family: "Outfit", sans-serif;
+  font-size: 1rem;
+
+  background-color: transparent;
+  border-bottom: 1px solid #5a698f;
+  outline: transparent;
+
+  &:focus {
+    border-bottom: 1px solid #fff;
+    outline: transparent;
+  }
+}
+
+.inputError {
+  border-bottom: 1px solid hsl(0, 97%, 63%) !important;
+}
+
+.inputContainer {
+  width: 100%;
+  position: relative;
+}
+
+.formError::after {
+  content: "Can't be empty";
+  position: absolute;
+  top: 6px;
+  right: 0;
+  color: hsl(0, 97%, 63%);
+  font-size: 0.75rem;
+  z-index: 2;
+
+  border-bottom: 1px solid hsl(0, 97%, 63%);
+  padding-bottom: 1rem;
+}

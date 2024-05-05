@@ -1,6 +1,6 @@
-import { EntertainmentContext } from "../context/EntertainmentProvider";
+import { EntertainmentContext } from "../../context/EntertainmentProvider";
 import PropTypes from "prop-types";
-import { TrendingCard } from "../components";
+import { TrendingCard } from "../../components";
 import styles from "./Trending.module.css";
 import { useContext } from "react";
 

@@ -36,6 +36,7 @@ const useFetch = () => {
     return response.json();
   };
 
+  // Toggle bookmark
   const toggleBookmark = (title) => {
     const updatedShows = shows.map((show) =>
       show.title === title ? { ...show, isBookmarked: !show.isBookmarked } : show
