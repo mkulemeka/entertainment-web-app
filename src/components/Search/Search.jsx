@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { icons } from "../assets";
+import { icons } from "../../assets";
 import styles from "./Search.module.css";
 
 const { iconSearch } = icons;

@@ -4,10 +4,10 @@ import {
   IconNavMovies,
   IconNavTvSeries,
   icons,
-} from "../assets";
+} from "../../assets";
 
-import { AuthContext } from "../context/AuthProvider";
-import { Nav } from "../components";
+import { AuthContext } from "../../context/AuthProvider";
+import { Nav } from "../../components";
 import styles from "./Header.module.css";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
@@ -26,7 +26,7 @@ const Header = () => {
   const handleClick = async () => {
     try {
       await logout();
-      setLoading(false)
+      setLoading(false);
       navigate("/login");
     } catch (error) {
       console.error(error);
