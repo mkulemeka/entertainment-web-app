@@ -7,8 +7,10 @@ import {
 import { useEffect, useState } from "react";
 
 import { auth } from "../firebase/firebaseConfig";
+import useSession from "../hooks/useSession";
 
 const useAuth = () => {
+  const { sessionToken, setSession, clearSession } = useSession();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,12 +18,14 @@ const useAuth = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setLoading(false);
-      if (currentUser) setUser(currentUser);
-      else setUser(null);
+      if (currentUser) {
+        setUser(currentUser);
+        setSession(currentUser?.accessToken);
+      }
     });
 
     return unsubscribe;
-  }, []);
+  }, [setSession]);
 
   const signUp = async (email, password) => {
     setLoading(true);
@@ -34,16 +38,22 @@ const useAuth = () => {
   };
 
   const logout = async () => {
-    try {
-      setLoading(true);
-      await signOut(auth);
-      setUser(null);
-    } catch (error) {
-      setError(error.message);
-    }
+    setLoading(true);
+    clearSession();
+    return signOut(auth);
   };
 
-  return { user, loading, error, signUp, login, logout, setError, setLoading };
+  return {
+    user,
+    loading,
+    error,
+    signUp,
+    login,
+    logout,
+    setError,
+    setLoading,
+    sessionToken,
+  };
 };
 
 export default useAuth;

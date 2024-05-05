@@ -1,4 +1,4 @@
-import { FormButton, FormInput } from "../components";
+import { FormButton, FormInput, LoginError } from "../components";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 
@@ -8,31 +8,37 @@ import styles from "./Login.module.css";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login, loading, error, setLoading } = useContext(AuthContext);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { login, loading, error, setLoading, setError } = useContext(AuthContext);
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const [formError, setFormError] = useState(false);
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
-    if (name === "email") setEmail(value);
-    if (name === "password") setPassword(value);
+    setFormData({ ...formData, [name]: value });
     setFormError(false);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email || !password) setFormError(true);
-    if (email && password) {
-      try {
-        await login(email, password);
-        setLoading(false);
-        navigate("/");
-      } catch (error) {
-        console.error(error.message);
-        setLoading(false);
-      }
+    const { email, password } = formData;
+    if (!email || !password) {
+      setFormError(true);
+      return;
     }
+
+    try {
+      await login(email, password);
+      setLoading(false);
+      navigate("/");
+      clearForm();
+    } catch (error) {
+      setError("Invalid email or password");
+      setLoading(false);
+    }
+  };
+
+  const clearForm = () => {
+    setFormData({ email: "", password: "" });
   };
 
   return (
@@ -40,6 +46,7 @@ const Login = () => {
       <figure>
         <img src={Logo} alt="Logo" />
       </figure>
+      {error && <LoginError error={error} />}
       <form className={styles.form} onSubmit={handleSubmit}>
         <h1>Login</h1>
         <FormInput
@@ -47,7 +54,7 @@ const Login = () => {
           name="email"
           type="email"
           formError={formError}
-          value={email}
+          value={formData.email}
           placeholder="Email address"
           onChange={handleChange}
         />
@@ -56,7 +63,7 @@ const Login = () => {
           name="password"
           type="password"
           formError={formError}
-          value={password}
+          value={formData.password}
           placeholder="Password"
           onChange={handleChange}
         />

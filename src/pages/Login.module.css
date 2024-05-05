@@ -17,11 +17,15 @@
   width: 27rem;
   padding: 2rem;
 
-  background-color: #161d2f;
+  background-color: hsl(223, 36%, 14%);
   border-radius: 1rem;
 
   h1 {
     font-size: 1.5rem;
+  }
+
+  @media (max-width: 440px) {
+    width: 22rem;
   }
 
   @media (min-width: 768px) {
@@ -30,6 +34,7 @@
     }
   }
 }
+
 
 .span {
   text-align: center;

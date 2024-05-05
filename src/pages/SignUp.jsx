@@ -1,4 +1,4 @@
-import { FormButton, FormInput } from "../components";
+import { FormButton, FormInput, LoginError } from "../components";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 
@@ -8,7 +8,7 @@ import styles from "./Login.module.css";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const { loading, signUp, setLoading } = useContext(AuthContext);
+  const { error, loading, signUp, setLoading, setError } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [passwords, setPasswords] = useState({ password: "", confirmPassword: "" });
   const [formError, setFormError] = useState(false);
@@ -26,7 +26,7 @@ const SignUp = () => {
       setLoading(false);
       navigate("/");
     } catch (error) {
-      alert(error.message);
+      setError("User already exists");
       setLoading(false);
     }
   };
@@ -46,6 +46,7 @@ const SignUp = () => {
       <figure>
         <img src={Logo} alt="Logo" />
       </figure>
+      {error && <LoginError error={error} />}
       <form className={styles.form} onSubmit={handleSubmit}>
         <h1>Sign Up</h1>
         <FormInput
@@ -75,7 +76,10 @@ const SignUp = () => {
           placeholder="Confirm Password"
           onChange={handleChange}
         />
-        <FormButton buttonText={loading ? "Signing up" : "Sign Up"} />
+        <FormButton
+          buttonText={loading ? "Signing up" : "Sign Up"}
+          loading={loading}
+        />
         <span className={styles.span}>
           {`Already have an account? `}
           <Link to="/login" className={styles.redirectLink}>

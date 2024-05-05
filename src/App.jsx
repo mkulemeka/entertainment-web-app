@@ -24,9 +24,7 @@ const App = () => {
       path: page === "Home" ? "/" : `/${page.toLowerCase()}`,
       element: (
         <AnimatePresence mode="sync">
-          <ProtectedRoute key={page + i}>
-            <Page />
-          </ProtectedRoute>
+          <Page key={page + i} />
         </AnimatePresence>
       ),
     };
@@ -35,7 +33,11 @@ const App = () => {
   // Create a router with the routes
   const router = createBrowserRouter([
     {
-      element: <AppLayout />,
+      element: (
+        <ProtectedRoute>
+          <AppLayout />
+        </ProtectedRoute>
+      ),
       children: routes,
       errorElement: <Pages.ErrorPage />,
     },

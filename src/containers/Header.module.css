@@ -21,14 +21,38 @@
 }
 
 .headerProfile {
+  position: relative;
+  display: flex;
+  justify-content: center;
+
   width: 24px;
   height: 24px;
 
   border: 1px solid #fff;
   border-radius: 50%;
 
+  cursor: pointer;
+
   @media (min-width: 1025px) {
     width: 40px;
     height: 40px;
   }
+
+  &:hover {
+    .logoutButton {
+      display: block;
+    }
+  }
+}
+
+.logoutButton {
+  display: none;
+  position: absolute;
+  top: 100%;
+
+  padding: 0.1rem 0.25rem;
+  background-color: hsl(223, 30%, 9%);
+  border-radius: 0.5rem;
+
+  transition: ease-in-out 0.2s;
 }
