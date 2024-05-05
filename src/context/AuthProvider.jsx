@@ -6,8 +6,17 @@ import useAuth from "../hooks/useAuth";
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const { user, loading, error, signUp, login, logout, setError, setLoading, sessionToken } =
-    useAuth();
+  const {
+    user,
+    loading,
+    error,
+    signUp,
+    login,
+    logout,
+    setError,
+    setLoading,
+    sessionToken,
+  } = useAuth();
 
   // Clear error message after 3 seconds
   useEffect(() => {
@@ -33,17 +42,7 @@ const AuthProvider = ({ children }) => {
       setLoading,
       sessionToken,
     }),
-    [
-      user,
-      loading,
-      error,
-      signUp,
-      login,
-      logout,
-      setError,
-      setLoading,
-      sessionToken,
-    ]
+    [user, loading, error, signUp, login, logout, setError, setLoading, sessionToken]
   );
 
   return (

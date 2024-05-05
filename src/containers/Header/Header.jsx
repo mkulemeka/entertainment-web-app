@@ -11,6 +11,7 @@ import { Nav } from "../../components";
 import styles from "./Header.module.css";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import useSession from "../../hooks/useSession";
 
 const { imageAvatar, logo } = icons;
 const pages = [
@@ -22,12 +23,16 @@ const pages = [
 
 const Header = () => {
   const navigate = useNavigate();
+  const { clearSession } = useSession();
   const { logout, setLoading, setError } = useContext(AuthContext);
+  
+  // handle logout through click event
   const handleClick = async () => {
     try {
       await logout();
       setLoading(false);
       navigate("/login");
+      clearSession();
     } catch (error) {
       console.error(error);
       setError(error?.message);
