@@ -51,6 +51,7 @@ Users should be able to:
 - [React](https://reactjs.org/) - JS library
 - Tailwind CSS
 - [Firebase Auth](https://firebase.google.com/docs/auth) - Authentication provider
+- [Cloud Firestore](https://firebase.google.com/docs/firestore) - Cloud storage
 - [React Router](https://reactrouter.com/en/main) - Routing
 
 
@@ -62,12 +63,12 @@ Users should be able to:
 ### Continued development
 
 - Planning on implementing a TMDb API to fetch shows
-- Plan to use Cloud Firestore to store bookmarked shows for authenticated users
 - Continued development to make it a fullstack application.
 
 ### Useful resources
 
 - [Firebase Auth](https://firebase.google.com/docs/auth) - This helped me learn how to use Firebase's authentication service.
+-[Cloud Firestore](https://firebase.google.com/docs/firestore) - This helped me learn how to use Firebase's cloud storage. It allowed me to no longer local data in the app. Bookmarked data is no longer stored locally on the browser.
 - [React Router](https://reactrouter.com/en/main) - Docs for React Router.
 
 ## Author
