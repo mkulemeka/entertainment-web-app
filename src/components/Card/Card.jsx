@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import { cardVariants } from "../animations/variants";
-import { icons } from "../assets";
+import { cardVariants } from "../../animations/variants";
+import { icons } from "../../assets";
 import { motion } from "framer-motion";
 import styles from "./Card.module.css";
 
@@ -13,11 +13,12 @@ const {
 } = icons;
 const Card = ({ show, windowWidth, toggleBookmark }) => {
   const {
+    id: showID,
     isBookmarked,
-    title,
     thumbnail: { regular },
     category,
     rating,
+    title,
     year,
   } = show;
 
@@ -41,7 +42,7 @@ const Card = ({ show, windowWidth, toggleBookmark }) => {
           id={title}
           className={styles.bookmarkButton}
           aria-label="bookmark button"
-          onClick={() => toggleBookmark(title)}
+          onClick={() => toggleBookmark(showID)}
         >
           <img
             src={isBookmarked ? iconBookmarkFilled : iconBookmark}

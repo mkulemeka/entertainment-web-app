@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import { icons } from "../assets";
-import styles from "./Card.module.css";
+import { icons } from "../../assets";
+import styles from "./TrendingCard.module.css";
 
 const {
   iconBookmark,
@@ -12,16 +12,16 @@ const {
 const TrendingCard = ({ show, windowWidth, toggleBookmark }) => {
   const {
     isBookmarked,
-    title,
+    id: showID,
     thumbnail: { trending },
     category,
     rating,
+    title,
     year,
   } = show;
 
   const trendingThumbnail = windowWidth > 768 ? trending.large : trending.small;
-  const categoryIcon =
-    category === "Movie" ? iconCategoryMovies : iconCategoryTv;
+  const categoryIcon = category === "Movie" ? iconCategoryMovies : iconCategoryTv;
 
   return (
     <article
@@ -30,7 +30,7 @@ const TrendingCard = ({ show, windowWidth, toggleBookmark }) => {
     >
       <button
         className={styles.bookmarkButton}
-        onClick={() => toggleBookmark(title)}
+        onClick={() => toggleBookmark(showID)}
         aria-label="Bookmark button"
       >
         <img
