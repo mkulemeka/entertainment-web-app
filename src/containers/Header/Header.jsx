@@ -25,9 +25,9 @@ const Header = () => {
   const navigate = useNavigate();
   const { clearSession } = useSession();
   const { logout, setLoading, setError } = useContext(AuthContext);
-  
+
   // handle logout through click event
-  const handleClick = async () => {
+  const handleLogOut = async () => {
     try {
       await logout();
       setLoading(false);
@@ -46,7 +46,7 @@ const Header = () => {
       <Nav pages={pages} />
       <figure className={styles.headerProfile}>
         <img src={imageAvatar} alt="Avatar" className="w-full h-auto" />
-        <button onClick={handleClick} className={styles.logoutButton}>
+        <button onClick={handleLogOut} className={styles.logoutButton}>
           Logout
         </button>
       </figure>

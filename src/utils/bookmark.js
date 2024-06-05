@@ -10,54 +10,66 @@ import {
 import { db } from "../firebase/firebaseConfig";
 import { getAuth } from "firebase/auth";
 
-// takes title of the show, the state setter function, and the shows state
-const toggleBookmark = async (id, setShows, shows) => {
+// Function to get the current authenticated user
+const getCurrentUser = () => {
   const user = getAuth().currentUser;
-
   if (!user) {
-    console.error("User not logged in");
-    return;
+    throw new Error("User not logged in");
   }
+  return user;
+};
 
-  const userEmail = user?.email;
-  const userShowsRef = collection(db, "users", userEmail, "shows");
-
-  const showToToggle = shows.find((show) => show.id === id);
-  if (!showToToggle) {
-    console.error("Show not found");
-    return;
+// Function to find a show by ID in the shows array
+const findShowById = (shows, id) => {
+  const show = shows.find((show) => show.id === id);
+  if (!show) {
+    throw new Error("Show not found");
   }
+  return show;
+};
 
-  const newBookmarkStatus = !showToToggle.isBookmarked;
+// Function to update the bookmark status in Firestore
+const updateBookmarkStatusInFirestore = async (userShowsRef, id, newBookmarkStatus, showTitle) => {
+  const querySnapshot = await getDocs(query(userShowsRef, where("id", "==", id)));
 
-  // Update the local state and localStorage
-  const updatedShows = shows.map((show) =>
-    show.id === id ? { ...show, isBookmarked: !show.isBookmarked } : show
-  );
-  setShows(updatedShows);
+  if (!querySnapshot.empty) {
+    querySnapshot.forEach(async (docSnapShot) => {
+      const docRef = doc(userShowsRef, docSnapShot.id);
+      await setDoc(docRef, { isBookmarked: newBookmarkStatus }, { merge: true });
+    });
+  } else {
+    const newDocRef = doc(userShowsRef, id);
+    await setDoc(newDocRef, {
+      id,
+      title: showTitle,
+      isBookmarked: newBookmarkStatus,
+    });
+  }
+};
 
+// Main function to toggle the bookmark status
+const toggleBookmark = async (id, setShows, shows) => {
   try {
-    const querySnapshot = await getDocs(query(userShowsRef, where("id", "==", id)));
+    const user = getCurrentUser();
+    const userEmail = user.email;
+    const userShowsRef = collection(db, "users", userEmail, "shows");
 
-    if (!querySnapshot.empty) {
-      querySnapshot.forEach(async (docSnapShot) => {
-        const docRef = doc(userShowsRef, docSnapShot.id);
-        await setDoc(docRef, { isBookmarked: newBookmarkStatus }, { merge: true });
-      });
-    } else {
-      // add new document
-      const newDocRef = doc(userShowsRef, id);
-      await setDoc(newDocRef, {
-        id,
-        title: showToToggle.title,
-        isBookmarked: newBookmarkStatus,
-      });
-    }
+    const showToToggle = findShowById(shows, id);
+    const newBookmarkStatus = !showToToggle.isBookmarked;
+
+    // Update the local state
+    const updatedShows = shows.map((show) =>
+      show.id === id ? { ...show, isBookmarked: newBookmarkStatus } : show
+    );
+    setShows(updatedShows);
+
+    await updateBookmarkStatusInFirestore(userShowsRef, id, newBookmarkStatus, showToToggle.title);
   } catch (error) {
-    console.error("Error updating document: ", error);
+    console.error(error.message);
 
+    // Revert the local state in case of an error
     const revertedShows = shows.map((show) =>
-      show.id === id ? { ...show, isBookmarked: !newBookmarkStatus } : show
+      show.id === id ? { ...show, isBookmarked: !show.isBookmarked } : show
     );
     setShows(revertedShows);
   }

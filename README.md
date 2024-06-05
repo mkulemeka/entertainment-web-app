@@ -68,7 +68,7 @@ Users should be able to:
 ### Useful resources
 
 - [Firebase Auth](https://firebase.google.com/docs/auth) - This helped me learn how to use Firebase's authentication service.
--[Cloud Firestore](https://firebase.google.com/docs/firestore) - This helped me learn how to use Firebase's cloud storage. It allowed me to no longer local data in the app. Bookmarked data is no longer stored locally on the browser.
+- [Cloud Firestore](https://firebase.google.com/docs/firestore) - This helped me learn how to use Firebase's cloud storage. It allowed me to no longer local data in the app. Bookmarked data is no longer stored locally on the browser.
 - [React Router](https://reactrouter.com/en/main) - Docs for React Router.
 
 ## Author

@@ -1,8 +1,10 @@
+import { EntertainmentContext } from "../../context/EntertainmentProvider";
 import PropTypes from "prop-types";
 import { cardVariants } from "../../animations/variants";
 import { icons } from "../../assets";
 import { motion } from "framer-motion";
 import styles from "./Card.module.css";
+import { useContext } from "react";
 
 const {
   iconBookmark,
@@ -11,7 +13,10 @@ const {
   iconCategoryMovies,
   iconCategoryTv,
 } = icons;
-const Card = ({ show, windowWidth, toggleBookmark }) => {
+
+const Card = ({ show }) => {
+  const { windowWidth, toggleBookmark } = useContext(EntertainmentContext);
+  
   const {
     id: showID,
     isBookmarked,
@@ -72,9 +77,20 @@ const Card = ({ show, windowWidth, toggleBookmark }) => {
 };
 
 Card.propTypes = {
-  show: PropTypes.object,
-  windowWidth: PropTypes.number,
-  toggleBookmark: PropTypes.func,
+  show: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    isBookmarked: PropTypes.bool.isRequired,
+    thumbnail: PropTypes.shape({
+      regular: PropTypes.shape({
+        large: PropTypes.string.isRequired,
+        small: PropTypes.string.isRequired,
+      }),
+    }),
+    category: PropTypes.string.isRequired,
+    rating: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+  }),
 };
 
 export default Card;

@@ -9,8 +9,7 @@ import { useContext } from "react";
 import useSearch from "../hooks/useSearch";
 
 const Home = () => {
-  const { shows, trendingShows, loading } =
-    useContext(EntertainmentContext);
+  const { shows, trendingShows, loading } = useContext(EntertainmentContext);
   const { searchInput, handleSearch } = useSearch();
 
   if (loading) return <Loading />;

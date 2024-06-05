@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 
-import {AuthContext} from "../context/AuthProvider";
+import { AuthContext } from "../context/AuthProvider";
 import { toggleBookmark as bookmarkToggle } from "../utils/bookmark";
 import { fetchFromFirebase } from "../utils/firestore";
 
@@ -22,13 +22,6 @@ const useFetch = () => {
     };
     fetchData();
   }, [user]);
-
-  // Fetch shows from server
-  // const fetchShowsFromServer = async () => {
-  //   const url = "/data.json";
-  //   const response = await fetch(url);
-  //   return response.json();
-  // };
 
   // Toggle bookmark
   const toggleBookmark = (showID) => {

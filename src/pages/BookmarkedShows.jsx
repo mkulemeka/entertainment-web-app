@@ -12,14 +12,18 @@ const BookmarkedShows = () => {
   const { bookmarkedShows, loading } = useContext(EntertainmentContext);
   const { searchInput, handleSearch } = useSearch();
 
-  const bookmarkedMovies = bookmarkedShows.filter(
-    (show) => show.category === "Movie"
-  );
-  const bookmarkedTvSeries = bookmarkedShows.filter((show) =>
-    show.category.includes("TV Series")
-  );
-
   if (loading) return <Loading />;
+
+  const filteredShows = (category) =>
+    bookmarkedShows.filter((show) => show.category === category);
+
+  const bookmarkedMovies = filteredShows("Movie");
+  const bookmarkedTvSeries = filteredShows("TV Series");
+
+  const hasSearchInput = searchInput.length > 0;
+  const hasBookmarkedMovies = bookmarkedMovies.length > 0;
+  const hasBookmarkedTvSeries = bookmarkedTvSeries.length > 0;
+
   return (
     <motion.main
       className="bookmarked"
@@ -33,15 +37,22 @@ const BookmarkedShows = () => {
         searchInput={searchInput}
         handleSearch={handleSearch}
       />
-      {searchInput.length ? (
+      {hasSearchInput ? (
         <SearchResults searchInput={searchInput} shows={bookmarkedShows} />
       ) : (
         <>
-          <PageLayout shows={bookmarkedMovies} sectionHeading="Bookmarked Movies" />
-          <PageLayout
-            shows={bookmarkedTvSeries}
-            sectionHeading="Bookmarked TV Series"
-          />
+          {hasBookmarkedMovies && (
+            <PageLayout
+              shows={bookmarkedMovies}
+              sectionHeading="Bookmarked Movies"
+            />
+          )}
+          {hasBookmarkedTvSeries && (
+            <PageLayout
+              shows={bookmarkedTvSeries}
+              sectionHeading="Bookmarked TV Series"
+            />
+          )}
         </>
       )}
     </motion.main>

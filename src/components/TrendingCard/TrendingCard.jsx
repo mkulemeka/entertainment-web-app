@@ -1,6 +1,8 @@
+import { EntertainmentContext } from "../../context/EntertainmentProvider";
 import PropTypes from "prop-types";
 import { icons } from "../../assets";
 import styles from "./TrendingCard.module.css";
+import { useContext } from "react";
 
 const {
   iconBookmark,
@@ -9,7 +11,10 @@ const {
   iconCategoryMovies,
   iconCategoryTv,
 } = icons;
-const TrendingCard = ({ show, windowWidth, toggleBookmark }) => {
+
+const TrendingCard = ({ show }) => {
+  const { windowWidth, toggleBookmark } = useContext(EntertainmentContext);
+
   const {
     isBookmarked,
     id: showID,
@@ -62,10 +67,22 @@ const TrendingCard = ({ show, windowWidth, toggleBookmark }) => {
   );
 };
 
+// Add prop types for type checking
 TrendingCard.propTypes = {
-  show: PropTypes.object,
-  windowWidth: PropTypes.number,
-  toggleBookmark: PropTypes.func,
+  show: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    isBookmarked: PropTypes.bool.isRequired,
+    thumbnail: PropTypes.shape({
+      trending: PropTypes.shape({
+        large: PropTypes.string.isRequired,
+        small: PropTypes.string.isRequired,
+      }),
+    }),
+    category: PropTypes.string.isRequired,
+    rating: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+  }),
 };
 
 export default TrendingCard;

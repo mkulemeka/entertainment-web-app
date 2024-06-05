@@ -3,7 +3,16 @@ import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import useFetch from "../hooks/useFetch";
 
-const EntertainmentContext = createContext();
+const EntertainmentContext = createContext({
+  windowWidth: 0,
+  shows: [],
+  loading: true,
+  bookmarkedShows: [],
+  movies: [],
+  tvSeries: [],
+  trendingShows: [],
+  toggleBookmark: () => {},
+});
 
 const EntertainmentProvider = ({ children }) => {
   const [windowWidth, setWindowWidth] = useState(window?.innerWidth);
@@ -46,7 +55,7 @@ const EntertainmentProvider = ({ children }) => {
 };
 
 EntertainmentProvider.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
 };
 
 export { EntertainmentProvider, EntertainmentContext };

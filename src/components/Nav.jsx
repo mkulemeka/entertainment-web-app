@@ -4,17 +4,17 @@ import { useContext, useState } from "react";
 import { EntertainmentContext } from "../context/EntertainmentProvider";
 import PropTypes from "prop-types";
 
+const linkStyles = {
+  transition: "ease-in-out 0.2s",
+  transform: "scale(1.15)",
+};
+
+const hoverColor = "hsl(0, 97%, 63%)";
+
 const Nav = ({ pages }) => {
   const { pathname } = useLocation();
   const { windowWidth } = useContext(EntertainmentContext);
   const [hoveredIcon, setHoveredIcon] = useState(null);
-
-  const linkStyles = {
-    transition: "ease-in-out 0.2s",
-    transform: "scale(1.15)",
-  };
-
-  const hoverColor = "hsl(0, 97%, 63%)";
 
   return (
     <nav className="flex gap-6 lg:flex-col">

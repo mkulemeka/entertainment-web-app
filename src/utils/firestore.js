@@ -33,7 +33,6 @@ const fetchUserShows = async (user) => {
       return { id: doc.id, ...doc.data() };
     });
 
-    console.log("User shows: ", userShows);
     return userShows;
   } catch (error) {
     console.error("Error fetching data: ", error);
@@ -41,4 +40,4 @@ const fetchUserShows = async (user) => {
   }
 };
 
-export { fetchFromFirebase, fetchUserShows };
+export { fetchFromFirebase };
